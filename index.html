@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AsistePro | Sistema de asistencia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="encabezado">
+    <div class="logo">
+        <span class="logo-icono">A</span>
+        AsistePro
+    </div>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#cursos">Cursos</a>
+        <a href="#cursos">Registros</a>
+    </nav>
+</header>
+
+<main>
+
+    <!-- INICIO -->
+    <section id="inicio" class="bienvenida">
+        <div class="bienvenida-contenido">
+            <span class="etiqueta">SISTEMA DE CONTROL ESCOLAR</span>
+            <h1>Controla la asistencia con <span>AsistePro</span></h1>
+
+            <p>
+                Organiza los estudiantes, administra los cursos
+                y lleva un control de asistencia de manera sencilla.
+            </p>
+
+            <a href="#cursos" class="boton">Explorar cursos</a>
+        </div>
+
+        <div class="bienvenida-imagen">
+            <div class="icono-principal">✓</div>
+            <h3>Asistencia organizada</h3>
+            <p>Todos tus registros en un solo lugar.</p>
+        </div>
+    </section>
+
+    <!-- CURSOS -->
+    <section id="cursos" class="seccion">
+
+        <div class="encabezado-seccion">
+            <div>
+                <span class="etiqueta-azul">ADMINISTRACIÓN</span>
+                <h2>Carpetas de cursos</h2>
+                <p>Selecciona un curso para administrar sus estudiantes.</p>
+            </div>
+        </div>
+
+        <!-- CREAR CURSO -->
+        <div class="panel">
+            <h3>Crear nuevo curso</h3>
+
+            <form id="form-curso">
+                <div class="campo">
+                    <label for="grado">Grado</label>
+                    <input
+                        type="text"
+                        id="grado"
+                        placeholder="Ejemplo: 6to"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="modalidad">Modalidad o sección</label>
+                    <input
+                        type="text"
+                        id="modalidad"
+                        placeholder="Ejemplo: Informática"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="boton">
+                    + Crear curso
+                </button>
+            </form>
+        </div>
+
+        <div class="subtitulo">
+            <h3>Todos los cursos</h3>
+            <span id="cantidad-cursos">0 cursos</span>
+        </div>
+
+        <div id="lista-cursos" class="cursos"></div>
+
+    </section>
+
+    <!-- ADMINISTRACIÓN DEL CURSO -->
+    <section id="administracion" class="seccion" hidden>
+
+        <button id="volver" class="boton secundario">
+            ← Volver a cursos
+        </button>
+
+        <div class="curso-titulo">
+            <div class="carpeta-grande">📁</div>
+            <div>
+                <span class="etiqueta-azul">CARPETA DEL CURSO</span>
+                <h2 id="titulo-curso"></h2>
+                <p id="info-curso"></p>
+            </div>
+        </div>
+
+        <!-- ESTUDIANTES -->
+        <div class="panel">
+
+            <div class="titulo-panel">
+                <div>
+                    <h3>Lista de estudiantes</h3>
+                    <p>Agrega los nombres de los estudiantes de este curso.</p>
+                </div>
+
+                <span id="total-estudiantes" class="contador">0 estudiantes</span>
+            </div>
+
+            <form id="form-estudiante">
+                <div class="campo">
+                    <label for="nombre">Nombre completo</label>
+                    <input
+                        type="text"
+                        id="nombre"
+                        placeholder="Escribe el nombre del estudiante"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="boton">
+                    + Agregar estudiante
+                </button>
+            </form>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>N.º</th>
+                            <th>Nombre del estudiante</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="lista-estudiantes"></tbody>
+                </table>
+            </div>
+
+            <p id="mensaje-estudiante" class="mensaje"></p>
+        </div>
+
+        <!-- CREAR ASISTENCIA -->
+        <div class="panel">
+
+            <h3>Crear registro de asistencia</h3>
+            <p>Selecciona la materia y la fecha para comenzar.</p>
+
+            <form id="form-asistencia">
+
+                <div class="campo">
+                    <label for="materia">Materia</label>
+                    <input
+                        type="text"
+                        id="materia"
+                        placeholder="Ejemplo: Matemáticas"
+                        required
+                    >
+                </div>
+
+                <div class="campo">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" id="fecha" required>
+                </div>
+
+                <button type="submit" class="boton">
+                    Preparar asistencia
+                </button>
+
+            </form>
+
+            <div id="area-asistencia" hidden>
+
+                <div class="subtitulo">
+                    <h3 id="titulo-asistencia"></h3>
+                </div>
+
+                <div class="tabla-contenedor">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Estudiante</th>
+                                <th>Estado de asistencia</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tabla-asistencia"></tbody>
+                    </table>
+                </div>
+
+                <div class="resumen">
+                    <div class="mini-tarjeta">
+                        <span>Presentes</span>
+                        <strong id="cuenta-presentes">0</strong>
+                    </div>
+
+                    <div class="mini-tarjeta">
+                        <span>Ausentes</span>
+                        <strong id="cuenta-ausentes">0</strong>
+                    </div>
+
+                    <div class="mini-tarjeta">
+                        <span>Excusas</span>
+                        <strong id="cuenta-excusas">0</strong>
+                    </div>
+
+                    <div class="mini-tarjeta">
+                        <span>Tardanzas</span>
+                        <strong id="cuenta-tardanzas">0</strong>
+                    </div>
+                </div>
+
+                <button id="guardar-asistencia" class="boton">
+                    Guardar registro
+                </button>
+
+            </div>
+
+            <p id="mensaje" class="mensaje"></p>
+
+        </div>
+
+        <!-- ARCHIVOS -->
+        <div class="panel">
+
+            <h3>Archivos de asistencia</h3>
+
+            <p>
+                Aquí aparecerán todos los registros guardados
+                de este curso.
+            </p>
+
+            <div id="lista-registros" class="archivos"></div>
+
+            <div id="detalle-registro" hidden>
+
+                <div class="detalle-encabezado">
+                    <div>
+                        <span class="etiqueta-azul">ARCHIVO GUARDADO</span>
+                        <h3 id="titulo-archivo"></h3>
+                    </div>
+                </div>
+
+                <div class="tabla-contenedor">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>N.º</th>
+                                <th>Estudiante</th>
+                                <th>Asistencia</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="contenido-archivo"></tbody>
+                    </table>
+                </div>
+
+                <div class="resumen">
+                    <div class="mini-tarjeta">
+                        <span>Presentes</span>
+                        <strong id="archivo-presentes">0</strong>
+                    </div>
+
+                    <div class="mini-tarjeta">
+                        <span>Ausentes</span>
+                        <strong id="archivo-ausentes">0</strong>
+                    </div>
+
+                    <div class="mini-tarjeta">
+                        <span>Excusas</span>
+                        <strong id="archivo-excusas">0</strong>
+                    </div>
+
+                    <div class="mini-tarjeta">
+                        <span>Tardanzas</span>
+                        <strong id="archivo-tardanzas">0</strong>
+                    </div>
+                </div>
+
+                <button id="cerrar-archivo" class="boton secundario">
+                    Cerrar archivo
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    <h3>AsistePro</h3>
+    <p>Sistema web de control de asistencia escolar.</p>
+    <p>Politécnico Ramona Altagracia Tejada Marte</p>
+    <p>Proyecto de 6to Informática</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
