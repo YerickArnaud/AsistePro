@@ -22,8 +22,8 @@ body {
 /* MENU */
 
 .encabezado {
-    background: #102a43;
-    color: white;
+    background: #0084ff;
+    color: rgb(255, 0, 0);
     padding: 18px 7%;
     display: flex;
     justify-content: space-between;
